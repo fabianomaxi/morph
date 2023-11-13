@@ -1,0 +1,1097 @@
+<?php 
+include_once('cursor.php') ;
+?>
+<!DOCTYPE html>
+<html class="no-js" lang="pt_br" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Morph - Lista de Tarefas</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- Favicon-->
+        <!-- plugin css file  -->
+        <link rel="stylesheet" href="assets/plugin/datatables/responsive.dataTables.min.css" />
+        <link rel="stylesheet" href="assets/plugin/datatables/dataTables.bootstrap5.min.css" />
+        <!-- project css file  -->
+        <link rel="stylesheet" href="assets/css/my-task.style.min.css" />
+        <!-- Google Code  -->
+
+        <style>
+            .container {
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+                padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+            }
+
+            /* Then style the iframe to fit in the container div with full height and width */
+            .responsive-iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mytask-layout" class="theme-indigo">
+            <?php include_once('incs/sidebar.php') ; ?>
+
+            <!-- main body area -->
+            <div class="main px-lg-4 px-md-4">
+                <!-- Body: Header -->
+                <div class="header">
+                    <nav class="navbar py-4">
+                        <div class="container-xxl">
+                            <!-- header rightbar icon -->
+                            <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
+                                <div class="d-flex">
+                                    <div class="avatar-list avatar-list-stacked px-3">
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar2.jpg" alt="" />
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar1.jpg" alt="" />
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar3.jpg" alt="" />
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar4.jpg" alt="" />
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar7.jpg" alt="" />
+                                        <img class="avatar rounded-circle" src="assets/images/xs/avatar8.jpg" alt="" />
+                                        <span class="avatar rounded-circle text-center pointer" data-bs-toggle="modal" data-bs-target="#addUser"><i class="icofont-ui-add"></i></span>
+                                    </div>
+                                </div>
+                                <div class="dropdown notifications zindex-popover">
+                                    <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
+                                        <i class="icofont-alarm fs-5"></i>
+                                        <span class="pulse-ring"></span>
+                                    </a>
+                                    <div id="NotificationsDiv" class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-sm-end p-0 m-0">
+                                        <div class="card border-0 w380">
+                                            <div class="card-header border-0 p-3">
+                                                <h5 class="mb-0 font-weight-light d-flex justify-content-between">
+                                                    <span>Notifications</span>
+                                                    <span class="badge text-white">11</span>
+                                                </h5>
+                                            </div>
+                                            <div class="tab-content card-body">
+                                                <div class="tab-pane fade show active">
+                                                    <ul class="list-unstyled list mb-0">
+                                                        <li class="py-2 mb-1 border-bottom">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <img class="avatar rounded-circle" src="assets/images/xs/avatar1.jpg" alt="" />
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Dylan Hunter</span> <small>2MIN</small></p>
+                                                                    <span class="">Added 2021-02-19 my-Task ui/ux Design <span class="badge bg-success">Review</span></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="py-2 mb-1 border-bottom">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <div class="avatar rounded-circle no-thumbnail">DF</div>
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Diane Fisher</span> <small>13MIN</small></p>
+                                                                    <span class="">Task added Get Started with Fast Cad project</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="py-2 mb-1 border-bottom">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <img class="avatar rounded-circle" src="assets/images/xs/avatar3.jpg" alt="" />
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
+                                                                    <span class="">Quality Assurance Task Completed</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="py-2 mb-1 border-bottom">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <img class="avatar rounded-circle" src="assets/images/xs/avatar5.jpg" alt="" />
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Diane Fisher</span> <small>13MIN</small></p>
+                                                                    <span class="">Add New Project for App Developemnt</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="py-2 mb-1 border-bottom">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <img class="avatar rounded-circle" src="assets/images/xs/avatar6.jpg" alt="" />
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
+                                                                    <span class="">Add Timesheet For Rhinestone project</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="py-2">
+                                                            <a href="javascript:void(0);" class="d-flex">
+                                                                <img class="avatar rounded-circle" src="assets/images/xs/avatar7.jpg" alt="" />
+                                                                <div class="flex-fill ms-2">
+                                                                    <p class="d-flex justify-content-between mb-0"><span class="font-weight-bold">Zoe Wright</span> <small class="">1DAY</small></p>
+                                                                    <span class="">Add Calander Event</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <a class="card-footer text-center border-top-0" href="#"> View all notifications</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
+                                    <div class="u-info me-2">
+                                        <p class="mb-0 text-end line-height-sm"><span class="font-weight-bold">Dylan Hunter</span></p>
+                                        <small>Admin Profile</small>
+                                    </div>
+                                    <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
+                                        <img class="avatar lg rounded-circle img-thumbnail" src="assets/images/profile_av.png" alt="profile" />
+                                    </a>
+                                    <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
+                                        <div class="card border-0 w280">
+                                            <div class="card-body pb-0">
+                                                <div class="d-flex py-1">
+                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.png" alt="profile" />
+                                                    <div class="flex-fill ms-3">
+                                                        <p class="mb-0"><span class="font-weight-bold">Dylan Hunter</span></p>
+                                                        <small class="">Dylan.hunter@gmail.com</small>
+                                                    </div>
+                                                </div>
+
+                                                <div><hr class="dropdown-divider border-dark" /></div>
+                                            </div>
+                                            <div class="list-group m-2">
+                                                <a href="task.html" class="list-group-item list-group-item-action border-0"><i class="icofont-tasks fs-5 me-3"></i>My Task</a>
+                                                <a href="members.html" class="list-group-item list-group-item-action border-0"><i class="icofont-ui-user-group fs-6 me-3"></i>members</a>
+                                                <a href="ui-elements/auth-signin.html" class="list-group-item list-group-item-action border-0"><i class="icofont-logout fs-6 me-3"></i>Signout</a>
+                                                <div><hr class="dropdown-divider border-dark" /></div>
+                                                <a href="ui-elements/auth-signup.html" class="list-group-item list-group-item-action border-0"><i class="icofont-contact-add fs-5 me-3"></i>Add personal account</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- menu toggler -->
+                            <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
+                                <span class="fa fa-bars"></span>
+                            </button>
+
+                            <!-- main menu Search-->
+                            <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0"></div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Body: Body -->
+                <div class="body d-flex py-lg-3 py-md-2">
+                    <div class="row align-items-center" id="noFilters">
+                        <div class="border-0 mb-3">
+                            <div class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                <h3 class="fw-bold py-3 mb-0">Lista de Tarefas</h3>
+                                <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
+                                <button
+                                        style="margin-left: 10px;"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal_sc"
+                                        onclick="javascript:$('#exampleModalXlLabel').html('Nova Tarefa'); $('#iframesc').attr('src', '../painel-base/form_tasks/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>')"
+                                        class="btn btn-dark w-sm-100"
+                                    >
+                                        <i class="icofont-plus-circle me-2 fs-6"></i>Nova Tarefa
+                                    </button>
+                                    <div style="margin-left: 10px;" class="btn-group">
+                                        <button type="button" class="btn btn-dark w-sm-100 dropdown-toggle-not-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="icofont-listing-box me-2 fs-6"></i>Listagem</button>
+                                        <ul class="dropdown-menu border-0 shadow bg-primary">
+                                            <li><a class="dropdown-item text-light" onclick="javascript:window.location='list_tasks.php'" href="#">Kanban</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    <button
+                                        style="margin-left: 6px;"
+                                        type="button"
+                                        class="btn btn-dark w-sm-100"
+                                    >
+                                    <ul class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" onclick="javascript:showFilters()" role="tab"><i class="icofont-filter me-2 fs-6"></i>Filtros</a></li>
+                                    </button>
+                                    </ul>                                   
+                                    <?php  include_once('incs/herade-project.php') ; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end  -->
+
+                    <div class="container-xxl">
+                        <div class="row clearfix g-3">
+                            <div class="col-sm-12">
+                                <div class="card" style="height: 779px">
+                                    <div class="card-body" style="overflow-x: auto;">
+                                        <table id="myProjectTable" class="table table-hover align-middle mb-0 text-center" style="width: 158%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 6%;">&nbsp;</th>
+                                                    <th>&nbsp;</th>
+                                                    <th>Tarefa</th>
+                                                    <th>Sub.</th>
+                                                    <th>Depend.</th>
+                                                    <th>Respons.</th>
+                                                    <th>Início</th>
+                                                    <th>Duração</th>
+                                                    <th>Concluir</th>
+                                                    <th>Progresso</th>
+                                                    <th>Situação</th>
+                                                    <th>Status</th>
+                                                    <th>Priori.</th>
+                                                    <th>Tempo</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="sortable">
+                                                <?php 
+                                            $sql = "select 
+                                                        t.* , p.name as prioriy, u.name as user, ts.name as status, tsi.name as situacao, p.name as priority
+                                                    from 
+                                                        tasks as t left join priorities p on( p.id_prioriy = t.id_prioriy ) 
+                                                        inner join users u on( u.id_users = t.id_users_to )
+                                                        left join task_status ts on( ts.id_task_status = t.status )
+                                                        left join task_situation tsi on( tsi.id_task_situation = t.situation )
+                                                        where id_projects = '".$_GET['i']."' and id_task_main is null
+                                                    " ;
+                                            $c = new Cursor( $sql ) ;
+                                            $position = 1 ;
+                                            if( $c->linhas() > 0 ) { while(!$c->eof()) { $r = $c->fetch() ; ?>
+                                                <tr style="cursor: cell; font-weight: bold;">
+                                                    <input type="hidden" name="position_task[]" id="position_task" value="<?=$r['id_tasks']?>" />
+                                                    
+                                                    <td><div class="icon"> 
+
+                                                    <?php 
+                                                        $sql = "select * from risks where id_task = ".$r['id_tasks']." " ;
+                                                        $cIcon = new Cursor( $sql ) ;
+                                                        if( $cIcon->linhas() > 0 ) {
+                                                    ?>
+                                                        <i  style="cursor:pointer;color:#ffc107;" data-bs-toggle="tooltip" data-bs-placement="right" title="Risco" class="icon-color icofont-warning"></i>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    <?php 
+                                                        $sql = "select * from project_obs where id_tasks = ".$r['id_tasks']." " ;
+                                                        $cIcon = new Cursor( $sql ) ;
+                                                        if( $cIcon->linhas() > 0 ) {
+                                                    ?>
+                                                        <i  style="cursor:pointer;color:#6c757d;" data-bs-toggle="tooltip" data-bs-placement="right" title="Observação" class="icon-color icofont-chat"></i>
+                                                    <?php 
+                                                        }
+                                                    ?>
+                                                    <?php 
+                                                        $sql = "select * from files where id_tasks = ".$r['id_tasks']." " ;
+                                                        $cIcon = new Cursor( $sql ) ;
+                                                        if( $cIcon->linhas() > 0 ) {
+                                                    ?>
+                                                        <i  style="cursor:pointer;color:#6c757d;" data-bs-toggle="tooltip" data-bs-placement="right" title="Anexo" class="icon-color icofont-paper-clip"></i>
+                                                        <?php 
+                                                        }
+                                                    ?>
+                                                    </div>
+                                                </td>
+
+                                                    <td><?=$position?></td>
+                                                    <td style="text-align: left;"><?=utf8_encode($r['title'])?>
+                                                </td>
+
+                                                    <?php 
+                                                        $sql = "select * from tasks where id_task_main = '".$r['id_tasks']."' ";
+                                                        $cSubT = new Cursor( $sql ) ;
+                                                    ?>
+                                                    <td class="dt-body-right"><span onclick="javascript:showSubs('<?=$r['id_tasks']?>')" style="cursor:pointer" class="badge bt-subt">
+                                                        <?=intval($cSubT->linhas())?> Subtarefas</span></td>
+
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button id="depend_<?=$r['id_tasks']?>" class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Depend.
+                                                            </button>
+                                                            <ul class="dropdown-menu border-0 shadow p-3">
+                                                                <?php 
+                                                    $sql = "select 
+                                                    t.* , p.name as prioriy, u.name as user
+                                                from 
+                                                    tasks as t left join priorities p on( p.id_prioriy = t.id_prioriy ) 
+                                                    inner join users u on( u.id_users = t.id_users_to )
+                                                where id_projects = '".$_GET['i']."' 
+                                                ";
+                                                    $c2 = new Cursor( $sql ) ;
+                                                    if( $c2->linhas() > 0 ){ while(!$c2->eof()) { $r2 = $c2->fetch() ; ?>
+                                                                <li>
+                                                                    <a onclick="javascript:changeData('1','','<?=utf8_encode($r2['title'])?>',<?=$r['id_tasks']?>)" class="dropdown-item py-2 rounded" href="#"><?=utf8_encode($r2['title'])?></a>
+                                                                </li>
+                                                                <?php 
+                                                        }
+                                                    }
+                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-success fw-bold">
+                                                        <button id="user_<?=$r['id_tasks']?>" class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <?=$r['user']?>
+                                                        </button>
+                                                        <ul class="dropdown-menu border-0 shadow p-3">
+                                                            <?php 
+                                                    $sql = "select * from users ";
+                                                    $c3 = new Cursor( $sql ) ;
+                                                    if( $c3->linhas() > 0 ){ while(!$c3->eof()) { $r3 = $c3->fetch() ; ?>
+                                                            <li>
+                                                                <a onclick="javascript:$('#user_<?=$r['id_tasks']?>').html('<?=utf8_encode($r3['name'])?>')" class="dropdown-item py-2 rounded" href="#"><?=utf8_encode($r3['name'])?></a>
+                                                            </li>
+                                                            <?php
+                                                        }
+                                                    }
+                                                ?>
+                                                        </ul>
+                                                    </td>
+
+                                                    <td><?=date('d/m/Y',strtotime($r['ts_start_default']))?></td>
+                                                    <td>
+                                                        <!--<i class="icofont-close-circled text-danger"></i>-->
+                                                        <?php 
+                                                            $data1 = new DateTime(date('Y-m-d',strtotime($r['ts_finihed_default'])));
+                                                            $data2 = new DateTime(date('Y-m-d',strtotime($r['ts_start_default'])));
+
+                                                            // Subtrai as datas e obtém a diferença em dias
+                                                            $diferenca = $data1->diff($data2);
+                                                        ?>
+                                                        <?=$diferenca->days ?> dias
+                                                    </td>
+                                                    <td class="text-success"><?=date('d/m/Y',strtotime($r['ts_finihed_default']))?></td>
+
+                                                    <td>
+                                                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="40% Completo" class="progress" style="height: 6px;">
+                                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="dt-body-right">
+                                                        <span class="badge bg-info" id="situacao_<?=$r['id_tasks']?>_label" style="cursor: pointer;" onclick="javascript:changeSitu('situacao_<?=$r['id_tasks']?>')">
+                                                            <?=$r['situacao']?>
+                                                        </span>
+                                                        <span style="display: none;" id="situacao_<?=$r['id_tasks']?>">
+                                                            <div class="dropdown">
+                                                                <button id="lbl_situacao_<?=$r['id_tasks']?>" class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Situação
+                                                                </button>
+                                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                                    <?php 
+                                                                        $sql = "select * from project_situation " ; 
+                                                                        $cSit = new Cursor( $sql ) ;
+                                                                        if( $cSit->linhas() > 0 ){
+                                                                            while(!$cSit->eof()) {
+                                                                                $rSit = $cSit->fetch() ;
+                                                                    ?>
+                                                                            <li><a onclick="javascript:$('#lbl_situacao_<?=$r['id_tasks']?>').html('<?=$rSit['name']?>')" class="dropdown-item py-2 rounded" href="#"><?=$rSit['name']?></a></li>
+                                                                    <?php
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="dt-body-right">
+                                                        <span class="badge bg-info" id="status_<?=$r['id_tasks']?>_label_status" onclick="javascript:changeStatus('status_<?=$r['id_tasks']?>')" style="cursor: pointer;"><?=$r['status']?></span>
+                                                    
+                                                        <span style="display: none;" id="status_<?=$r['id_tasks']?>">
+                                                            <div class="dropdown">
+                                                                <button id="lbl_status_<?=$r['id_tasks']?>" class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Status
+                                                                </button>
+                                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                                    <?php 
+                                                                        $sql = "select * from project_status " ; 
+                                                                        $cSit = new Cursor( $sql ) ;
+                                                                        if( $cSit->linhas() > 0 ){
+                                                                            while(!$cSit->eof()) {
+                                                                                $rSit = $cSit->fetch() ;
+                                                                    ?>
+                                                                            <li><a onclick="javascript:$('#lbl_status_<?=$r['id_tasks']?>').html('<?=$rSit['name']?>')" class="dropdown-item py-2 rounded" href="#"><?=utf8_encode($rSit['name'])?></a></li>
+                                                                    <?php
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </ul>
+                                                            </div>
+                                                        </span>                                                    
+                                                    
+                                                    </td>
+
+                                                    <td class="dt-body-right"><span class="badge bg-danger"><?=$r['prioriy']?></span></td>
+
+                                                    <td><i class="icofont-check-circled text-success"></i> 
+                                                    <?php 
+                                                        $data1 = new DateTime($r['ts_update_time']);
+                                                        $data2 = new DateTime('2023-10-19 12:00:32');
+                                                        // Subtrai as datas e obtém a diferença em dias
+                                                        $diferenca = $data1->diff($data2);
+                                                    ?>
+
+                                                    <?=$diferenca->format('%h:%i')?></td>
+
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Ações
+                                                            </button>
+                                                            <ul class="dropdown-menu border-0 shadow p-3">
+                                                                <li>
+                                                                    <a
+                                                                        onclick="javascript:openModalSc('../painel-base/form_tasks/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>&id_tasks=<?=$r['id_tasks']?>')"
+                                                                        class="dropdown-item py-2 rounded">
+                                                                        Editar
+                                                                    </a>
+                                                                </li>
+                                                                <li><a onclick="javascript:$('#idDelete').val(<?=$r['id_tasks']?>);$('#excluir').modal('show')" class="dropdown-item py-2 rounded" href="#">Excluir</a></li>
+                                                                <li>
+                                                                    <a
+                                                                        onclick="javascript:$('#exampleModalXlLabel').html('Gestão de Riscos'); $('#iframesc').attr('src', '../painel-base/grid_risks/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>&id_tasks=<?=$r['id_tasks']?>');  $('#modal_sc').modal('show')"
+                                                                        class="dropdown-item py-2 rounded"
+                                                                        href="#"
+                                                                    >
+                                                                        Inserir Risco
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        onclick="javascript:$('#exampleModalXlLabel').html('Gestão de Observações'); $('#iframesc').attr('src', '../painel-base/grid_project_obs/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>&id_tasks=<?=$r['id_tasks']?>');  $('#modal_sc').modal('show')"
+                                                                        class="dropdown-item py-2 rounded"
+                                                                        href="#"
+                                                                    >
+                                                                        Inserir Observações
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        onclick="javascript:$('#exampleModalXlLabel').html('Gestão de Anexos'); $('#iframesc').attr('src', '../painel-base/grid_files/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>&id_tasks=<?=$r['id_tasks']?>');  $('#modal_sc').modal('show')"
+                                                                        class="dropdown-item py-2 rounded"
+                                                                        href="#"
+                                                                    >
+                                                                        Inserir Anexos
+                                                                    </a>
+                                                                </li>
+
+                                                                <li>
+                                                                    <a
+                                                                        onclick="javascript:$('#exampleModalXlLabel').html('Gestão de Lições Aprendidas'); $('#iframesc').attr('src', '../painel-base/grid_lessons_learned/?id_companies=1&id_users=1&id_project=<?=$_GET['i']?>&id_tasks=<?=$r['id_tasks']?>');  $('#modal_sc').modal('show')"
+                                                                        class="dropdown-item py-2 rounded"
+                                                                        href="#"
+                                                                    >
+                                                                        Inserir Lição Aprendida
+                                                                    </a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- subtarefas -->
+                                                <?php 
+                                                    if( $cSubT->linhas() > 0 ){ while(!$cSubT->eof()) { $rSubT = $cSubT->fetch() ; ?>
+                                                        <tr style="cursor: cell; display:none" id="subtasks_<?=$r['id_tasks']?>">
+                                                            <input type="hidden" name="position_task[]" id="position_task" value="<?=$rSubT['id_tasks']?>" />
+
+                                                            <td><div class="icon"> 
+                                                                <i  style="cursor:pointer;color:#ffc107;" data-bs-toggle="tooltip" data-bs-placement="right" title="Risco" class="icon-color icofont-warning"></i>
+                                                                <i  style="cursor:pointer;color:#6c757d;" data-bs-toggle="tooltip" data-bs-placement="right" title="Observação" class="icon-color icofont-chat"></i>
+                                                                <i  style="cursor:pointer;color:#6c757d;" data-bs-toggle="tooltip" data-bs-placement="right" title="Anexo" class="icon-color icofont-paper-clip"></i>
+                                                            </div></td>
+
+                                                            <td><?=$position?>.1</td>
+                                                            <td style="text-align: left;"><?=utf8_encode($rSubT['title'])?></td>
+
+                                                            <td class="dt-body-right"><span onclick="javascript:showSubs('<?=$r['id_tasks']?>')" style="cursor:pointer" class="badge bt-subt bg-info"> 
+                                                            0 Subtarefas
+                                                            </span></td>
+
+
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        Depend.
+                                                                    </button>
+                                                                    <ul class="dropdown-menu border-0 shadow p-3">
+                                                                        <?php 
+                                                            $sql = "select 
+                                                            t.* , p.name as prioriy, u.name as user
+                                                        from 
+                                                            tasks as t left join priorities p on( p.id_prioriy = t.id_prioriy ) 
+                                                            inner join users u on( u.id_users = t.id_users_to )
+                                                        where id_projects = '".$_GET['i']."'
+                                                        ";
+                                                            $cSub = new Cursor( $sql ) ;
+                                                            if( $cSub->linhas() > 0 ){ while(!$cSub->eof()) { $rSub = $cSub->fetch() ; ?>
+                                                                        <li>
+                                                                            <a onclick="javascript:changeData('1','','','<?=utf8_encode($rSub['title'])?>',<?=$r['id_tasks']?>)" class="dropdown-item py-2 rounded" href="#"><?=utf8_encode($rSub['title'])?></a>
+                                                                        </li>
+                                                                        <?php 
+                                                                }
+                                                            }
+                                                        ?>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-success fw-bold">
+                                                                <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Responsável
+                                                                </button>
+                                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                                    <?php 
+                                                            $sql = "select * from users ";
+                                                            $c33 = new Cursor( $sql ) ;
+                                                            if( $c33->linhas() > 0 ){ while(!$c33->eof()) { $r33 = $c33->fetch() ; ?>
+                                                                    <li>
+                                                                        <a onclick="javascript:changeData('','2','<?=utf8_encode($rSub['title'])?>',<?=$r['id_tasks']?>)" class="dropdown-item py-2 rounded" href="#"><?=$r33['name']?></a>
+                                                                    </li>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                        ?>
+                                                                </ul>
+                                                            </td>
+
+                                                            <td><?=date('Y-m-d',strtotime($rSub['ts_start_default']))?></td>
+                                                            <td>
+                                                        <!--<i class="icofont-close-circled text-danger"></i>-->
+                                                        <?php 
+                                                            $data1 = new DateTime(date('Y-m-d',strtotime($rSub['ts_finihed_default'])));
+                                                            $data2 = new DateTime(date('Y-m-d',strtotime($rSub['ts_start_default'])));
+
+                                                            // Subtrai as datas e obtém a diferença em dias
+                                                            $diferenca = $data1->diff($data2);
+                                                        ?>
+                                                        <?=$diferenca->days ?> dias
+                                                    </td>
+                                                            <td class="text-success"><?=date('d/m/Y',strtotime($rSubT['ts_finihed_default']))?></td>
+
+                                                            <td rel="40% Completo" alt="40% Completo">
+                                                                <div data-bs-toggle="tooltip" data-bs-placement="top" title="40% Completo" class="progress" style="height: 6px;">
+                                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                            <td class="dt-body-right"><span class="badge bg-info">Em andamento</span></td>
+
+                                                            <td class="dt-body-right">
+                                                        <span class="badge bg-info" id="status_<?=$rSubT['id_tasks']?>_label_status" onclick="javascript:changeStatus('status_<?=$r['id_tasks']?>')" style="cursor: pointer;"><?=$r['status']?></span>
+                                                    
+                                                        <span style="display: none;" id="status_<?=$rSubTr['id_tasks']?>">
+                                                            <div class="dropdown">
+                                                                <button id="lbl_status_<?=$rSubT['id_tasks']?>" class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Status
+                                                                </button>
+                                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                                    <?php 
+                                                                        $sql = "select * from project_status " ; 
+                                                                        $cSit = new Cursor( $sql ) ;
+                                                                        if( $cSit->linhas() > 0 ){
+                                                                            while(!$cSit->eof()) {
+                                                                                $rSit = $cSit->fetch() ;
+                                                                    ?>
+                                                                            <li><a  class="dropdown-item py-2 rounded" href="#"><?=utf8_encode($rSit['name'])?></a></li>
+                                                                    <?php
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </ul>
+                                                            </div>
+                                                        </span>                                                    
+                                                    
+                                                    </td>
+
+                                                            <td class="dt-body-right"><span class="badge bg-danger">Alta</span></td>
+                                                            <td><i class="icofont-check-circled text-success"></i> 
+                                                            <?php 
+                                                                $data1 = new DateTime($rSub['ts_update_time']);
+                                                                $data2 = new DateTime('2023-10-19 12:00:32');
+                                                                // Subtrai as datas e obtém a diferença em dias
+                                                                $diferenca = $data1->diff($data2);
+                                                            ?>
+
+                                                    <?=$diferenca->format('%h:%i')?></td>
+
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        Ações
+                                                                    </button>
+                                                                    <ul class="dropdown-menu border-0 shadow p-3">
+                                                                        <li>
+                                                                            <a
+                                                                                onclick="javascript:$('#exampleModalXlLabel').html('Subtarefas'); $('#iframesc').attr('src', '../painel-base/form_tasks/?id_companies=1&id_users=1');  $('#modal_sc').modal('show')"
+                                                                                class="dropdown-item py-2 rounded"
+                                                                                href="#"
+                                                                            >
+                                                                                Subtarefas
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a
+                                                                                onclick="javascript:$('#exampleModalXlLabel').html('Editar Tarefa'); $('#iframesc').attr('src', '../painel-base/form_tasks/?id_companies=1&id_users=1');  $('#modal_sc').modal('show')"
+                                                                                class="dropdown-item py-2 rounded"
+                                                                                href="#"
+                                                                            >
+                                                                                Editar
+                                                                            </a>
+                                                                        </li>
+                                                                        <li><a onclick="javascript:$('#excluir').modal('show')" class="dropdown-item py-2 rounded" href="#">Excluir</a></li>
+                                                                        <li><a onclick="javascript:$('#riscos').modal('show')" class="dropdown-item py-2 rounded" href="#">Inserir Risco</a></li>
+                                                                        <li><a onclick="javascript:$('#modal_obs').modal('show')" class="dropdown-item py-2 rounded" href="#">Inserir Observações</a></li>
+                                                                        <li><a onclick="javascript:$('#modal_obs').modal('show')" class="dropdown-item py-2 rounded" href="#">Inserir Anexos</a></li>
+                                                                        <li><a onclick="javascript:$('#modal_obs').modal('show')" class="dropdown-item py-2 rounded" href="#">Inserir Lição Aprendida</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                $position++ ;
+                                                }
+                                            }
+                                        ?>
+                                            </tbody>
+                                        </table>
+
+                                        <table class="btn btn-dark w-sm-100" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <!--<th colspan="9" onclick="javascript:showNewTask()" style="cursor: pointer;"><i class="icofont-plus-circle me-2 fs-6"></i>Adicionar Tarefa</th> -->
+                                                </tr>
+                                            </thead>
+
+                                            <thead style="display: none;" id="n-task-header">
+                                                <tr>
+                                                    <th style="width: 30%;">Tarefa</th>
+                                                    <th>Predecessora</th>
+                                                    <th style="width: 10%;">Início</th>
+                                                    <th>Duração</th>
+                                                    <th>Concluir</th>
+                                                    <th>Tempo Utilizado</th>
+                                                    <th>Responsável</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="n-task" style="display: none;">
+                                                <tr style="cursor: cell;">
+                                                    <input type="hidden" name="position_task[]" id="position_task" value="<?=$r['id_tasks']?>" />
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input placeholder="TAREFA" type="text" class="form-control" required="" />
+                                                        </div>
+                                                    </td>
+
+                                                    <!--<td /*class="text-danger"*/></td>-->
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                ---
+                                                            </button>
+                                                            <ul class="dropdown-menu border-0 shadow p-3">
+                                                                <?php 
+                                                    $sql = "select * from tasks ";
+                                                    $c = new Cursor( $sql ) ;
+                                                    if( $c->linhas() > 0 ){ while(!$c->eof()) { $r = $c->fetch() ; ?>
+                                                                <li>
+                                                                    <a class="dropdown-item py-2 rounded" href="#"><?=$r['title']?></a>
+                                                                </li>
+                                                                <?php 
+                                                        }
+                                                    }
+                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="date" class="form-control" required="" /></td>
+                                                    <td><input type="text" placeholder="DURAÇÃO" class="form-control" required="" /></td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="date" placeholder="CONCLUIR EM" class="form-control" required="" />
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-success">
+                                                        <i class="icofont-check-circled text-success"></i>
+                                                        <?=$r['hours_worked']?>
+                                                        Hr
+                                                    </td>
+                                                    <td class="text-success fw-bold">
+                                                        <div class="form-group">
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Responsável
+                                                                </button>
+                                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                                    <?php 
+                                                    $sql = "select * from users ";
+                                                    $c = new Cursor( $sql ) ;
+                                                    if( $c->linhas() > 0 ){ while(!$c->eof()) { $r = $c->fetch() ; ?>
+                                                                    <li>
+                                                                        <a class="dropdown-item py-2 rounded" href="#"><?=$r['name']?></a>
+                                                                    </li>
+                                                                    <?php
+                                                        }
+                                                    }
+                                                ?>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary">Incluir</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row End -->
+                    </div>
+                </div>
+
+                <!-- Modal Members-->
+                <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold" id="addUserLabel">Employee Invitation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="inviteby_email">
+                                    <div class="input-group mb-3">
+                                        <input type="email" class="form-control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="exampleInputEmail1" />
+                                        <button class="btn btn-dark" type="button" id="button-addon2">Sent</button>
+                                    </div>
+                                </div>
+                                <div class="members_list">
+                                    <h6 class="fw-bold">Employee</h6>
+                                    <ul class="list-unstyled list-group list-group-custom list-group-flush mb-0">
+                                        <li class="list-group-item py-3 text-center text-md-start">
+                                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-column flex-lg-row">
+                                                <div class="no-thumbnail mb-2 mb-md-0">
+                                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar2.jpg" alt="" />
+                                                </div>
+                                                <div class="flex-fill ms-3 text-truncate">
+                                                    <h6 class="mb-0 fw-bold">Rachel Carr(you)</h6>
+                                                    <span class="text-muted">rachel.carr@gmail.com</span>
+                                                </div>
+                                                <div class="members-action">
+                                                    <span class="members-role">Admin</span>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn bg-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="icofont-ui-settings fs-6"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"><i class="icofont-ui-password fs-6 me-2"></i>ResetPassword</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"><i class="icofont-chart-line fs-6 me-2"></i>ActivityReport</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item py-3 text-center text-md-start">
+                                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-column flex-lg-row">
+                                                <div class="no-thumbnail mb-2 mb-md-0">
+                                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar3.jpg" alt="" />
+                                                </div>
+                                                <div class="flex-fill ms-3 text-truncate">
+                                                    <h6 class="mb-0 fw-bold">Lucas Baker<a href="#" class="link-secondary ms-2">(Resend invitation)</a></h6>
+                                                    <span class="text-muted">lucas.baker@gmail.com</span>
+                                                </div>
+                                                <div class="members-action">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn bg-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Members
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="icofont-check-circled"></i>
+
+                                                                    <span>All operations permission</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="fs-6 p-2 me-1"></i>
+                                                                    <span>Only Invite & manage team</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn bg-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="icofont-ui-settings fs-6"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"><i class="icofont-delete-alt fs-6 me-2"></i>Delete Member</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item py-3 text-center text-md-start">
+                                            <div class="d-flex align-items-center flex-column flex-sm-column flex-md-column flex-lg-row">
+                                                <div class="no-thumbnail mb-2 mb-md-0">
+                                                    <img class="avatar lg rounded-circle" src="assets/images/xs/avatar8.jpg" alt="" />
+                                                </div>
+                                                <div class="flex-fill ms-3 text-truncate">
+                                                    <h6 class="mb-0 fw-bold">Una Coleman</h6>
+                                                    <span class="text-muted">una.coleman@gmail.com</span>
+                                                </div>
+                                                <div class="members-action">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn bg-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Members
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="icofont-check-circled"></i>
+
+                                                                    <span>All operations permission</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="fs-6 p-2 me-1"></i>
+                                                                    <span>Only Invite & manage team</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn bg-transparent dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="icofont-ui-settings fs-6"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"><i class="icofont-ui-password fs-6 me-2"></i>ResetPassword</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"><i class="icofont-chart-line fs-6 me-2"></i>ActivityReport</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"><i class="icofont-delete-alt fs-6 me-2"></i>Suspend member</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"><i class="icofont-not-allowed fs-6 me-2"></i>Delete Member</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jquery Core Js -->
+        <script src="assets/bundles/libscripts.bundle.js"></script>
+
+        <!-- Plugin Js -->
+        <script src="assets/bundles/apexcharts.bundle.js"></script>
+        <script src="assets/bundles/dataTables.bundle.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script>
+            $("#sortable").sortable({
+                stop: function (e) {
+                    alert("X:" + e.screenX, "Y:" + e.screenY);
+                },
+            });
+        </script>
+
+        <!-- Jquery Page Js -->
+        <script src="../js/template.js"></script>
+        <script>
+            // project data table
+            $(document).ready(function () {
+                $("#myProjectTable")
+                    .addClass("nowrap")
+                    .dataTable({
+                        responsive: true,
+                        columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
+                    });
+            });
+            // employees Line Column
+            $(document).ready(function () {
+                var options = {
+                    chart: {
+                        height: 350,
+                        type: "line",
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    colors: ["var(--chart-color1)", "var(--chart-color2)"],
+                    series: [
+                        {
+                            name: "Working Hours",
+                            type: "column",
+                            data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160],
+                        },
+                        {
+                            name: "Employees Progress",
+                            type: "line",
+                            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16],
+                        },
+                    ],
+                    stroke: {
+                        width: [0, 4],
+                    },
+                    //labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+                    xaxis: {
+                        type: "datetime",
+                    },
+                    yaxis: [
+                        {
+                            title: {
+                                text: "Working Hours",
+                            },
+                        },
+                        {
+                            opposite: true,
+                            title: {
+                                text: "Employees Progress",
+                            },
+                        },
+                    ],
+                };
+                var chart = new ApexCharts(document.querySelector("#apex-chart-line-column"), options);
+
+                chart.render();
+            });
+
+            // employees circle
+            $(document).ready(function () {
+                var options = {
+                    chart: {
+                        height: 250,
+                        type: "radialBar",
+                    },
+                    colors: ["var(--chart-color1)"],
+                    plotOptions: {
+                        radialBar: {
+                            hollow: {
+                                size: "70%",
+                            },
+                        },
+                    },
+                    series: [70],
+                    labels: ["Working"],
+                };
+                var chart = new ApexCharts(document.querySelector("#apex-circle-chart"), options);
+
+                chart.render();
+            });
+
+            // predecessora, responsavel
+            function changeData(predecessora = "", responsavel = "" , name = "", id_tasks = "") {
+                $('#depend_'+id_tasks).html(name);
+            }
+        </script>
+
+        <?php  include_once('incs/modal_sc.php') ; ?>
+
+        <?php  include_once('incs/modal_riscos.php') ; ?>
+
+        <?php  include_once('incs/excluir.php') ; ?>
+        <?php  include_once('incs/modal_obs.php') ; ?>
+
+        <script>
+            function showNewTask() {
+                var isVisible = $("#n-task").is(":visible");
+
+                if (isVisible === false) {
+                    $("#n-task-header").show("slow");
+                    $("#n-task").show("slow");
+                } else {
+                    $("#n-task-header").hide("slow");
+                    $("#n-task").hide("slow");
+                }
+            }
+
+            function showFilters() {
+                $("#modal_filters_tasks").modal("show");
+            }
+
+            function showSubs( id_tasks ){
+
+                var isVisible = $("#subtasks_"+id_tasks).is(":visible");
+
+                if (isVisible === false) {
+                    $("[id=subtasks_"+id_tasks+"]").show("slow");
+                } else {
+                    $("[id=subtasks_"+id_tasks+"]").hide("slow");
+                }
+                
+            }
+
+            function changeSitu(div){
+
+                var isVisible = $("#"+div).is(":visible");
+
+                if (isVisible === false) {
+                    $("#"+div).show("slow");
+                    $("#"+div+"_label").hide("slow");
+                } else {
+                    $("#"+div).hide("slow");
+                    $("#"+div+"_label").show("slow");
+                }
+
+            }
+
+            function changeStatus(div){
+
+                var isVisible = $("#"+div).is(":visible");
+
+                if (isVisible === false) {
+                    $("#"+div).show("slow");
+                    $("#"+div+"_label_status").hide("slow");
+                } else {
+                    $("#"+div).hide("slow");
+                    $("#"+div+"_label_status").show("slow");
+                }
+
+            }
+
+            function openModalSc( url ){
+                $('#exampleModalXlLabel').html('Editar Tarefa'); 
+                $('#iframesc').attr('src', url );  
+                $('#modal_sc').modal('show');
+            }
+
+
+        </script>
+
+        <?php include_once('incs/modal_filters_tasks.php') ;?>
+        
+    </body>
+</html>
