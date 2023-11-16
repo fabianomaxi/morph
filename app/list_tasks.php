@@ -2,6 +2,13 @@
 include_once('cursor.php') ;
 include_once('incs/tarefas.php') ;
 
+$sql = "select * from projects where id_projects = ".$_GET['i']." " ;
+$c = new Cursor($sql) ;
+if( $c->linhas() > 0 ){
+    $projectData = $c->fetch() ;
+
+}
+
 ?>
 
 
@@ -54,7 +61,7 @@ include_once('incs/tarefas.php') ;
                     <div class="row align-items-center" id="noFilters">
                         <div class="border-0 mb-3">
                             <div class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold py-3 mb-0">Lista de Tarefas</h3>
+                                <h3 class="fw-bold py-3 mb-0">Lista de Tarefas - <?=$projectData['name']?></h3>
                                 <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
                                 
                                 <?php 
@@ -100,7 +107,7 @@ include_once('incs/tarefas.php') ;
 <div class="container-xxl">
     <div class="row clearfix g-3">
         <div class="col-sm-12">
-            <div class="card" style="height: 779px">
+            <div class="card" style="height: 479px">
                 <div class="card-body" style="overflow-x: auto;">
                     <table id="myProjectTable" class="table table-hover align-middle mb-0 text-center" style="width: 158%;">
                         <thead>
@@ -119,7 +126,7 @@ include_once('incs/tarefas.php') ;
                                 <th>Situação</th>
                                 <th>Status</th>
                                 <th>Priori.</th>
-                                <th>Tempo</th>
+                                <th>Tempo Restante</th>
 
                             </tr>
                         </thead>
@@ -585,6 +592,19 @@ include_once('incs/tarefas.php') ;
 
             }
 
+            function changeDateFinishDB ( id_tasks , name , date ){
+
+                $.post("php/updateDateFinish.php", {id_tasks: id_tasks, date:date}, function(result){
+                    if( result == '1' ){
+                        $('#msg_priority').html('Salvo com sucesso!') ;
+                        $('#div_msg_sucess').show("slow");
+                        $('#lbl_priority_'+id_tasks).html(name) ;
+                        setTimeout(closeMsg, 2000);
+                    }
+                });
+
+            }
+
             function closeMsg() {
                 $('#div_msg_sucess').hide("slow");
                 setTimeout(reloadPage, 1000);
@@ -645,6 +665,23 @@ include_once('incs/tarefas.php') ;
                 }
 
             }
+
+
+            function changeDateFinish(div){
+
+                var isVisible = $("#"+div).is(":visible");
+
+                if (isVisible === false) {
+                    $("#"+div).show("slow");
+                    $("#"+div+"_label").hide("slow");
+                } else {
+                    $("#"+div).hide("slow");
+                    $("#"+div+"_label").show("slow");
+                }
+
+            }
+
+            
 
 
             function changeStatus(div){

@@ -2,8 +2,6 @@
   <div class="modal-dialog" role="document">
     <form action="deleletData.php" method="post" name="frmDeletar" id="frmDeletar">  
       <input type="hidden" name="idDelete" id="idDelete" value="">
-      <input type="hidden" name="idProjectDelete" id="idProjectDelete" value="">
-      
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Excluir Registro</h5>
@@ -15,7 +13,7 @@
           <p>Deseja mesmo excluir este registro?</p>
         </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Sim</button>
+        <button type="submit" class="btn btn-success-green">Sim</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="javascript:$('#excluir').modal('hide')">Não</button>
         </div>
       </div>

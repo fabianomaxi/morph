@@ -50,7 +50,7 @@ include_once('cursor.php') ;
                         <div class="w-100 p-3 p-md-5 card border-0 bg-dark text-light" style="max-width: 32rem;">
                             <!-- Form -->
                             <form class="row g-1 p-3 p-md-4" action="validaLogin.php" method="post" id="frmLogin">
-                                <div class="col-12 text-center mb-1 mb-lg-5">
+                                <div class="col-12 text-center text-fxd mb-1 mb-lg-5">
                                     <h1>Login</h1>
                                     <span>Acesse o seu Morph</span>
                                 </div>
@@ -64,23 +64,23 @@ include_once('cursor.php') ;
                                     <span class="dividers text-fxd mt-4">OU</span>
                                 </div>
                                 <div class="col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Seu Login</label>
-                                        <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="name@example.com">
+                                    <div class="mb-2 text-fxd">
+                                        <label class="form-label">Usuário</label>
+                                        <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="nome@exemplo.com">
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 text-fxd">
                                         <div class="form-label">
                                             <span class="d-flex justify-content-between align-items-center">
-                                                Sua Senha
+                                                Senha
                                                 <a class="text-secondary" href="auth-password-reset.html">Esqueceu sua senha?</a>
                                             </span>
                                         </div>
                                         <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 text-fxd">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
@@ -89,7 +89,7 @@ include_once('cursor.php') ;
                                     </div>
                                 </div>
                                 <div class="col-12 text-center mt-4">
-                                    <input type="submit" class="btn btn-lg btn-block btn-light" atl="signin" value="ACESSAR SISTEMA" >
+                                    <input type="submit" class="btn btn-lg btn-block btn-light btn-color" atl="signin" value="Acessar agora" >
                                 </div>
                                 <div class="col-12 text-center mt-4">
                                     <span class="text-fxd">Ainda não é nosso cliente? <a href="auth-signup.html" class="text-secondary">Fale Conosco</a></span>

@@ -1,8 +1,8 @@
 <!-- Modal -->
 <div class="modal fade" id="modal_delete" tabindex="-1">
     <div class="modal-dialog">
-        <form id="frmDelete" id="frmDelete" method="post" id="frmDel">
-            <input type="hiddens" name="idDelete" id="idDelete">
+        <form id="idDelete" id="idDelete" method="post" id="frmDel">
+            <input type="hiddens" name="idtasldel" id="idtasldel">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLiveLabel">Deletar Dado</h5>
