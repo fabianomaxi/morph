@@ -12,7 +12,7 @@
                     Status do Projeto
                 </button>
                 <ul class="dropdown-menu border-0 shadow p-3">
-                    <li><a class="dropdown-item py-2 rounded" href="#">Action</a></li>
+                    <li><a class="dropdown-item py-2 rounded" href="#">Ação</a></li>
                     <li><a class="dropdown-item py-2 rounded" href="#">Another action</a></li>
                     <li><a class="dropdown-item py-2 rounded" href="#">Something else here</a></li>
                 </ul>
