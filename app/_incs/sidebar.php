@@ -42,16 +42,15 @@
                         <li><a class="m-link" href="conteudos.php?p=grid_project_types&n=Tipos de Projetos"><span>Tipos de Projeto</span></a></li>                      
                         <li><a class="m-link" href="conteudos.php?p=grid_project_status&n=Status do Projetos"><span>Status de Projeto</span></a></li>
                         <li><a class="m-link" href="conteudos.php?p=grid_task_status&n=Status de Tarefas"><span>Status de Tarefas</span></a></li>                                         
-                        <li><a class="m-link" href="conteudos.php?p=grid_type_files&n=Tipos de Anexos"><span>Tipos de Anexos</span></a></li>                                         
                     </ul>
                         
                     </li>
                 <li class="collapsed">
                     <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-check" href="#"><i
-                            class="icofont-ui-clip-board fs-5"></i> <span>Checklist</span> <span class="arrow ms-auto text-end fs-5"></span></a>
+                            class="icofont-checked fs-5"></i> <span>Checklist</span> <span class="arrow ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="emp-check">
-                        <li><a class="m-link" href="conteudos.php?p=form_check_list&n=Checklist" ><span>Cadastro de Checklist</span></a></li>
+                        <li><a class="m-link" href="conteudos.php?p=form_check_list&n=Checklist" ><span>Checklist</span></a></li>
                     </ul>
                 </li>
 
@@ -67,7 +66,7 @@
 
                 <li class="collapsed">
                     <a class="m-link" data-bs-toggle="collapse" data-bs-target="#client-Components" href="#"><i
-                            class="icofont-users-alt-2"></i> <span>Clientes</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                            class="icofont-bank-alt"></i> <span>Clientes</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="client-Components">
                         <li><a class="ms-link" href="conteudos.php?p=grid_clients&n=Clientes"> <span>Gestão de Clientes</span></a></li>

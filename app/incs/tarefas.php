@@ -91,10 +91,17 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
             ' ;
 
             $return .= '
-                <td class="dt-body-right">
-                    <span onclick="javascript:showSubs(\''.$r['id_tasks'].'\')" style="cursor:pointer" class="badge bt-subt">
-                        '.intval($cSubT->linhas()).' Subtarefas
-                    </span>
+                <td class="dt-body-right">';
+                if( intval($cSubT->linhas()) > 0 ) {
+                    $return .= '
+                        <span onclick="javascript:showSubs(\''.$r['id_tasks'].'\')" style="cursor:pointer" class="badge bt-subt">
+                            '.intval($cSubT->linhas()) .' Subtarefas 
+                        </span>';
+                }else {
+                    $return .= '&nbsp;';
+                }
+            
+            $return .= '
                 </td>
                 <td>
                     <div class="dropdown">
@@ -160,7 +167,7 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
                 if( $c3->linhas() > 0 ){ while(!$c3->eof()) { $r3 = $c3->fetch() ; 
                     $return .= '
                         <li>
-                            <a onclick="javascript:$(\'#user_'.$r['id_tasks'].'\').html(\''.utf8_encode($r3['name']).'\')" class="dropdown-item py-2 rounded" href="#">'.utf8_encode($r3['name']).'</a>
+                            <a onclick="javascript:changeUser('.$r['id_tasks'].', '.$r3['id_users'].' , \''.utf8_encode($r3['name']).'\'  )" class="dropdown-item py-2 rounded" href="#">'.utf8_encode($r3['name']).'</a>
                         </li>';
                         
                     }
@@ -197,13 +204,33 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
             if( $percent == '0' && strtotime($r['ts_finihed_default']) < strtotime(date('Y-m-d')) )  
                 $percent = '100' ;
 
+            $bar = 'info' ;
+            if( $percent > 90 && $percent < 100 ){
+                $bar = 'warning' ;
+            } elseif( $percent >= 100 && $r['situation'] == '3' ) {
+                $bar = 'success' ;
+            } elseif( $percent >= 100 && $r['situation'] != '3' ) {
+                $bar = 'danger' ;
+            }
+
+            $daysDuration = $days;
+
             $return .= '
             '.$days.' dias
             </td>
-            <td class="text-success">'.date('d/m/Y',strtotime($r['ts_finihed_default'])).'</td>
+            <td class="text-success">
+                <span style="cursor:pointer" onclick="javascript:changeDateFinish(\'finish_'.$r['id_tasks'].'\')" id="finish_'.$r['id_tasks'].'_label">    
+                    '.date('d/m/Y',strtotime($r['ts_finihed_default'])).'
+                </span>
+
+                <span style="display:none" id="finish_'.$r['id_tasks'].'">    
+                    <input type="date" onChange="javascript:changeDateFinishDB('.$r['id_tasks'].', this.value , this.value  )" class="form-control" style="width:150px">
+                </span>
+
+            </td>
             <td>
                 <div data-bs-toggle="tooltip" data-bs-placement="top" title="'.$percent.'% Completo" class="progress" style="height:20px;">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="'.$percent.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$percent.'%;">'.$percent.'%</div>
+                    <div class="progress-bar bg-'.$bar.'" role="progressbar" aria-valuenow="'.$percent.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$percent.'%;">'.$percent.'%</div>
                 </div>
             </td>
             
@@ -256,7 +283,9 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
             </td>
 
             <td class="dt-body-right">
-                <span class="badge bg-info" id="status_'.$r['id_tasks'].'_label_status" onclick="javascript:changeStatus(\'status_'.$r['id_tasks'].'\')" style="cursor: pointer;">'.utf8_encode($r['status']).'</span>
+                <span class="badge bg-info" id="status_'.$r['id_tasks'].'_label_status" onclick="javascript:changeStatus(\'status_'.$r['id_tasks'].'\')" style="cursor: pointer;">
+                    '.( ! empty(utf8_encode($r['status'])) ? utf8_encode($r['status']) : 'Status').'
+                </span>
                 <span style="display: none;" id="status_'.$r['id_tasks'].'">
                     <div class="dropdown">
                         <button id="lbl_status_'.$r['id_tasks'].'" class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -285,7 +314,7 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
 
             <td class="dt-body-right">
                 <span class="badge bg-'.$priritiesColors[$r['id_prioriy']].'" id="priority_'.$r['id_tasks'].'_label" style="cursor: pointer;" onclick="javascript:changeSitu(\'priority_'.$r['id_tasks'].'\')">
-                '.utf8_encode($r['priotiry']).'
+                '.( ! utf8_encode(trim($r['priotiry'])) ? utf8_encode($r['priotiry']) : 'Prioridade').'
                 </span>
                 <span style="display: none;" id="priority_'.$r['id_tasks'].'">
                     <div class="dropdown">
@@ -299,7 +328,8 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
                                     while(!$cSit->eof()) {
                                         $rPrioriry = $cSit->fetch() ;
                                         $return .= '
-                                    <li><a onclick="javascript:changePrioriry( '.$r['id_tasks'].' , \''.utf8_encode($rPrioriry['name']).'\' , \''.$rPrioriry['id_prioriy'].'\' )" class="dropdown-item py-2 rounded" href="#">'.utf8_encode($rPrioriry['name']).'</a></li> ' ;
+                                    <li><a onclick="javascript:changePrioriry( '.$r['id_tasks'].' , \''.utf8_encode($rPrioriry['name']).'\' , \''.$rPrioriry['id_prioriy'].'\' )" class="dropdown-item py-2 rounded" href="#">
+                                        '.utf8_encode($rPrioriry['name']).'</a></li> ' ;
                                     }
                                 }
             $return .= '
@@ -309,7 +339,7 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
             </td>
 
             <td><i class="icofont-check-circled text-success"></i> ' ;
-                $data1 = new DateTime($r['ts_finihed_default']);
+                $data1 = new DateTime($r['ts_start_default']);
                 $data2 = new DateTime(date('Y-m-d H:i:s'));
                 // Subtrai as datas e obtém a diferença em dias
                 $diferenca = $data1->diff($data2);
@@ -322,8 +352,22 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
                 if( $percent == '0' && strtotime($r['ts_finihed_default']) < strtotime(date('Y-m-d')) ) 
                     $percent = '1' ;
 
+                $time = $daysDuration - $diferenca->days . ' dias' ;
+                //$time = $daysDuration - $time ;
+
+                $color = 'black' ;
+                if( $time < 0 && $r['situation'] != '3' && strtotime($r['ts_start_default']) <= strtotime(date('Y-m-d')) ) {
+                    $color = 'red' ;
+                }
+
+                if( $time < 0 && $r['situation'] == '3' ) {
+                    $time = '--' ;
+                } else if( strtotime($r['ts_start_default']) > strtotime(date('Y-m-d')) || $r['situation'] == '3' ) {
+                    $time = 0 . ' dias' ;
+                }
+
                 $return .= 
-                $diferenca->days.' dias </td>
+                '<span style="color:'.$color.'">'.$time.'  </span> </td>
 
             <td>
                 <div class="dropdown">
@@ -338,7 +382,7 @@ function tarefas( $idProject, $pai = '', $subPosition = [] , $position = '' ) {
                                 Editar
                             </a>
                         </li>
-                        <li><a onclick="javascript:$(\'#idDelete\').val('.$r['id_tasks'].');$(\'#excluir\').modal(\'show\')" class="dropdown-item py-2 rounded" href="#">Excluir</a></li>
+                        <li><a onclick="javascript:$(\'#idDelete\').val('.$r['id_tasks'].');$(\'#idProjectDelete\').val('.$_GET['i'].');$(\'#excluir\').modal(\'show\')" class="dropdown-item py-2 rounded" href="#">Excluir</a></li>
                         <li>
                             <a
                                 onclick="javascript:$(\'#exampleModalXlLabel\').html(\'Gestão de Riscos\'); $(\'#iframesc\').attr(\'src\', \'../painel-base/grid_risks/?id_companies=1&id_users=1&id_project='.$idProject.'&id_tasks='.$r['id_tasks'].'\');  $(\'#modal_sc\').modal(\'show\')"

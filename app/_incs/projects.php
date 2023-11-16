@@ -4,7 +4,7 @@
             <h3 class="fw-bold py-3 mb-0">Projetos</h3>
             <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
 
-            <ul style="display: none;" class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100" role="tablist">
+            <ul class="nav nav-tabs tab-body-header rounded ms-3 prtab-set w-sm-100" role="tablist">
                     <li class="nav-item"><a style="cursor:pointer" onclick="javascript:$('#modal-filters').modal('show')" class="nav-link active" data-bs-toggle="tab" role="tab"><i class="icofont-filter me-2 fs-6"></i>Filtros</a></li>
                 </ul>
 
@@ -63,7 +63,7 @@
 
                                 // progresso
                                 $total_tasks_finish = $percent = 0 ;
-                                $sql = "select count(0) as total_tasks_finish from tasks where id_projects = ".$r['id_projects']." and situation = 3 " ;
+                                $sql = "select count(0) as total_tasks_finish from tasks where id_projects = ".$r['id_projects']." and td_finiched is not null " ;
                                 $cTP = new Cursor( $sql ) ;
                                 if( $cTP->linhas() > 0 ){
                                     $rTP = $cTP->fetch() ;
@@ -89,21 +89,10 @@
                                                 if( $cP->linhas() > 0 ){
                                                     $rP = $cP->fetch() ;
                                                 }
-
-                                                $sql = "select * from clients  " ;
-                                                $cC = new Cursor($sql) ;
-                                                if( $cC->linhas() > 0 ) {
-                                                    while(!$cC->eof()){
-                                                        $rC = $cC->fetch() ;
-                                                        $clients[$rC['id_clients']] = $rC['name'] ;
-                                                    }
-                                                }
                                             ?>
-                                            <?=utf8_encode($rP['name'])?> 
+                                                <?=utf8_encode($rP['name'])?> 
                                             </span>
-                                            <h6 class="mb-0 fw-bold  fs-6  mb-2" style="cursor: pointer;" onclick="window.location='list_tasks.php?i=<?=$r['id_projects']?>'">
-                                                <?=utf8_encode($r['name'])?> ( <?=$clients[$r['id_clients']]?> )
-                                            </h6>
+                                            <h6 class="mb-0 fw-bold  fs-6  mb-2" style="cursor: pointer;" onclick="window.location='list_tasks.php?i=<?=$r['id_projects']?>'"><?=utf8_encode($r['name'])?></h6>
                                         </div>
                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                         
@@ -113,7 +102,7 @@
                                         <div class="btn-group">
                                                 <button class="btn btn-secondary btn-sm dropdown-toggle-not-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="icofont-navigation-menu me-2 fs-6"></i>
                                                 </button>
-                                                <ul class="dropdown-menu border-0 shadow p-3">
+                                                <ul class="dropdown-menu shadow border-0 p-3 ">
                                                     <li><a data-bs-toggle="modal" data-bs-target="#modal_sc_dash" onclick="javascript:$('#exampleModalXlLabel').html('Editar Projeto'); $('#iframesc').attr('src', '/painel-base/form_projects/?id_projects=<?=$r['id_projects']?>&id_companies=1&id_users=1');" class="dropdown-item py-2 rounded" href="#"><i class="icofont-ui-edit me-2 fs-6"></i>Editar</a></li>
                                                     <li><a class="dropdown-item py-2 rounded" href="#"><i class="icofont-ui-delete me-2 fs-6"></i>Deletar</a></li>
                                                     <li><a class="dropdown-item py-2 rounded" href="#"><i class="icofont-ui-copy me-2 fs-6"></i>Duplicar</a></li>
@@ -245,7 +234,7 @@
                                                         while(!$cS->eof()) {
                                                             $rS = $cS->fetch() ;
                                                 ?>
-                                                                <li><a onclick="returnStatus('<?=utf8_encode($rS['name'])?>',<?=$r['id_projects']?>,<?=$rS['id_project_status']?>)" class="dropdown-item" href="#"><?=utf8_encode($rS['name'])?></a></li>
+                                                                <li><a onclick="returnStatus('<?=utf8_encode($rS['name'])?>',<?=$r['id_projects']?>)" class="dropdown-item" href="#"><?=utf8_encode($rS['name'])?></a></li>
                                                 <?php
 
                                                         }
@@ -254,47 +243,12 @@
                                             </ul>
                                         </div><!-- /btn-group -->
                                     </div>
-
-                                    <?php 
-                                        // status do projeto
-                                        $sql = "select * from project_status " ; 
-                                        $cS = new Cursor($sql) ;
-                                        if( $cS->linhas() > 0 ) {
-                                            while(!$cS->eof()){
-                                                $rS = $cS->fetch() ;
-                                                $statusProject[$rS['id_project_status']] = $rS['name'] ;
-                                            }
-                                        }
-                                    ?>
-
                                         <span style="cursor:pointer" id="showStatus_<?=$r['id_projects']?>" onclick="changeStatus(<?=$r['id_projects']?>)" class="small light-primary-bg  p-1 rounded"><i class="icofont-ui-clock"></i> 
-                                                <?=utf8_encode($statusProject[$r['status']])?>
+                                                Em Andamento
                                         </span>
                                     </div>
-
-                                    <?php 
-
-                                        $data1 = new DateTime($r['ts_started']);
-                                        $data2 = new DateTime($r['ts_finish_planner']);
-                                        $diferenca = $data2->diff($data1);
-                                        $daysProject = $diferenca->days ;
-
-                                        $data1 = new DateTime($r['ts_started']);
-                                        $data2 = new DateTime(date('Y-m-d H:i:s'));
-                                        // Subtrai as datas e obtém a diferença em dias
-                                        $diferenca = $data2->diff($data1);
-                                        $days = $diferenca->days ;
-
-                                        $percent = $days * 100 / $daysProject ;
-                                        $color = 'secondary' ;
-                                        if( $percent < 100 && strtotime($r['ts_finish_planner']) < strtotime(date('Y-m-d')) ) {
-                                            $color = 'danger' ;
-                                        }
-
-                                    ?>
-
                                     <div class="progress" style="height: 8px;">
-                                        <div class="progress-bar bg-<?=$color?>" role="progressbar" style="width: <?=$percent?>%" aria-valuenow="<?=$percent?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-secondary" role="progressbar" style="width: <?=$percent?>%" aria-valuenow="<?=$percent?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -326,28 +280,10 @@
         } 
     }
 
-    function returnStatus( nStatus, id_projects, id_project_status ) {
-
+    function returnStatus( nStatus, id_projects ) {
         $('#showStatus_'+id_projects).html(nStatus) ;
         $( "#showStatus_"+id_projects ).show() ;
         $( "#changeStatus_"+id_projects ).hide() ;
-
-        $.post("php/updateStatusProjext.php", {nStatus: id_project_status, id_projects:id_projects}, function(result){
-            if( result == '1' ){
-                $('#msg_priority').html('Salvo com sucesso!') ;
-                $('#div_msg_sucess').show("slow");
-                setTimeout(closeMsg, 2000);
-            }
-        });
-    }
-
-    function closeMsg() {
-        $('#div_msg_sucess').hide("slow");
-        setTimeout(reloadPage, 1000);
-    }
-
-    function reloadPage() {
-        window.location = 'dashboard.php' ;
     }
 
 

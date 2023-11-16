@@ -10,7 +10,7 @@
                     </svg>
                 </span>
                 <span class="logo-text">Caméléon</span> -->
-                <img src="assets/images/logo-hub.svg" style="width: 100% !important;" alt="MorphProject">
+                <img src="assets/images/logo-hub.svg" alt="MorphProject">
             </a>
             <!-- Menu: main ul --> 
             <ul class="menu-list flex-grow-1 mt-3">
@@ -19,58 +19,22 @@
                     <i class="icofont-home fs-5"></i><span>HUB de Projetos</span>
                     </a>
                 </li>
-                
-                <?php 
-                    if( $_SESSION['is_admin_session'] == '1' ){
-                ?>
-                <li class="collapsed">
-                    <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-admin" href="#"><i
-                            class="icofont-settings fs-5"></i> <span>Cadastros</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
-                    <!-- Menu: Sub menu ul -->
-                    <ul class="sub-menu collapse" id="emp-admin">
-                        
-                        <li><a class="ms-link" href="conteudos.php?p=grid_team&n=Times"> <span>Equipes</span></a></li>
-                        <li><a class="ms-link" href="conteudos.php?p=grid_users&n=Usuários"> <span>Usuários</span></a></li>
-                        
-                        <?php 
-                            if( $_SESSION['is_admin_yh_session'] == '1' ){
-                        ?>
-                                <li><a class="ms-link" href="conteudos.php?p=grid_profiles&n=Perfis"> <span>Perfil</span></a></li>
-                        <?php
-                            }
-                        ?>
-                        <li><a class="m-link" href="conteudos.php?p=grid_project_types&n=Tipos de Projetos"><span>Tipos de Projeto</span></a></li>                      
-                        <li><a class="m-link" href="conteudos.php?p=grid_project_status&n=Status do Projetos"><span>Status de Projeto</span></a></li>
-                        <li><a class="m-link" href="conteudos.php?p=grid_task_status&n=Status de Tarefas"><span>Status de Tarefas</span></a></li>                                         
-                        <li><a class="m-link" href="conteudos.php?p=grid_type_files&n=Tipos de Anexos"><span>Tipos de Anexos</span></a></li>                                         
-                    </ul>
-                        
-                    </li>
-                <li class="collapsed">
-                    <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-check" href="#"><i
-                            class="icofont-ui-clip-board fs-5"></i> <span>Checklist</span> <span class="arrow ms-auto text-end fs-5"></span></a>
-                    <!-- Menu: Sub menu ul -->
-                    <ul class="sub-menu collapse" id="emp-check">
-                        <li><a class="m-link" href="conteudos.php?p=form_check_list&n=Checklist" ><span>Cadastro de Checklist</span></a></li>
-                    </ul>
-                </li>
-
-                <li class="collapsed">
-                    <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="#"><i
-                            class="icofont-stopwatch fs-5"></i> <span>Timesheet</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
-                    <!-- Menu: Sub menu ul -->
-                    <ul class="sub-menu collapse" id="emp-Components">
-                        <li><a class="m-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_sc_timesheet" onclick="javascript:$('#exampleModalXlLabel').html('Timesheet'); $('#iframesctsheet').attr('src', '/painel-base/grid_timesheet/?id_companies=1&id_users=<?=$_SESSION['id_users_session']?>');"><i class="icofont-speed-meter fs-5"></i><span>Registro de Horas</span></a></li>
-                        <li><a class="m-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_sc_timesheet" onclick="javascript:$('#exampleModalXlLabel').html('Pedidos de Férias'); $('#iframesctsheet').attr('src', '/painel-base/grid_vacation/?id_companies=1&id_users=<?=$_SESSION['id_users_session']?>');"><i class="icofont-island-alt fs-5"></i><span>Pedido de Férias</span></a></li>                      
-                    </ul>
-                </li>
-
                 <li class="collapsed">
                     <a class="m-link" data-bs-toggle="collapse" data-bs-target="#client-Components" href="#"><i
-                            class="icofont-users-alt-2"></i> <span>Clientes</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                            class="icofont-user-male"></i> <span>Clientes</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="client-Components">
                         <li><a class="ms-link" href="conteudos.php?p=grid_clients&n=Clientes"> <span>Gestão de Clientes</span></a></li>
+                    </ul>
+                </li>
+                <li class="collapsed">
+                    <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="#"><i
+                            class="icofont-users-alt-5"></i> <span>Equipe</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                    <!-- Menu: Sub menu ul -->
+                    <ul class="sub-menu collapse" id="emp-Components">
+                        <li><a class="ms-link" href="conteudos.php?p=grid_team&n=Times"> <span>Equipes</span></a></li>
+                        <li><a class="ms-link" href="conteudos.php?p=grid_users&n=Usuários"> <span>Usuários</span></a></li>
+                        <li><a class="ms-link" href="conteudos.php?p=grid_profiles&n=Perfis"> <span>Perfil</span></a></li>
                     </ul>
                 </li>
                
@@ -112,9 +76,6 @@
                     </ul>
                 </li>
                 <li style="display: none;"><a class="m-link" href="#"><i class="icofont-paint"></i> <span>UI Components</span></a></li>
-            <?php 
-                    }
-            ?>
             </ul>
 
             <!-- Theme: Switch Theme -->
@@ -138,5 +99,3 @@
             </button>
         </div>
     </div>
-
-    <?php  include_once('incs/modal_sc_timesheet.php') ; ?>
